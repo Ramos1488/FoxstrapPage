@@ -1,0 +1,60 @@
+:root {
+    --primary: #a855f7;
+    --bg: #050508;
+    --glass: rgba(10, 10, 15, 0.8);
+}
+
+body {
+    background: var(--bg);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Эффект капель на стекле */
+.glass-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    backdrop-filter: blur(3px);
+    pointer-events: none; z-index: 10;
+}
+.glass-overlay::after {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.05) 1px, transparent 2px);
+    background-size: 100px 100px;
+    animation: drip 15s linear infinite;
+}
+@keyframes drip { to { background-position: 10px 1000px; } }
+
+/* Навигация */
+nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 8%; background: rgba(0,0,0,0.7);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    position: sticky; top: 0; z-index: 100;
+}
+.blox-icon { width: 30px; height: 30px; color: #ccc; }
+.logo-area { display: flex; align-items: center; gap: 10px; }
+.logo-text { font-family: 'Syncopate', sans-serif; font-weight: 700; }
+.logo-text span { color: var(--primary); }
+.nav-links a { color: #888; text-decoration: none; margin-left: 20px; font-weight: 700; transition: 0.3s; }
+.nav-links a:hover { color: white; }
+
+/* Hero & Cards */
+.hero { height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 20; position: relative; }
+.line-decorator { width: 60px; height: 3px; background: var(--primary); margin: 20px 0; }
+.dl-card { background: var(--glass); padding: 40px; border-radius: 10px; border: 1px solid rgba(168, 85, 247, 0.2); }
+.download-options { display: flex; gap: 15px; margin-top: 20px; }
+.btn-dl { padding: 12px 25px; text-decoration: none; font-weight: 900; border-radius: 5px; transition: 0.3s; }
+.exe-btn { background: white; color: black; }
+.zip-btn { border: 1px solid var(--primary); color: white; }
+.btn-dl:hover { transform: translateY(-3px); box-shadow: 0 0 20px var(--primary); }
+
+/* Wiki */
+.wiki-container { display: grid; grid-template-columns: 200px 1fr; padding: 40px 8%; z-index: 20; position: relative; }
+.sidebar ul { list-style: none; padding: 0; }
+.sidebar a { color: #666; text-decoration: none; display: block; margin: 10px 0; }
+
+/* Rain */
+#rain-container { position: fixed; top: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.drop { position: absolute; width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--primary)); opacity: 0.4; }
