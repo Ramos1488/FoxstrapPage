@@ -5,247 +5,252 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foxstrap | Wiki</title>
     
-    <!-- Иконка вкладки (Favicon) -->
     <link rel="icon" type="image/png" href="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/foxstrap.png?raw=true">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
-            --bg-dark: #111111;
-            --sidebar-bg: #161616;
-            --accent: #a855f7;
-            --text-main: #e1e1e1;
-            --text-dim: #888;
-            --note-bg: rgba(30, 41, 59, 0.5);
-            --note-border: #3b82f6;
+            --primary: #a855f7;
+            --bg: #050508;
+            --glass: rgba(15, 15, 25, 0.7);
+            --border: rgba(168, 85, 247, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
-        /* SIDEBAR / NAVIGATION */
-        .sidebar { width: 280px; background: var(--sidebar-bg); border-right: 1px solid #222; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; transition: 0.3s; }
-        .sidebar-header { padding: 25px; border-bottom: 1px solid #222; }
-        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; font-weight: 700; font-size: 1.2rem; }
-        .logo img { width: 24px; }
-        
-        .sidebar-menu { padding: 20px 15px; }
-        .menu-section { margin-bottom: 25px; }
-        .section-title { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; padding-left: 10px; }
-        .menu-item { display: block; padding: 10px 12px; color: var(--text-main); text-decoration: none; border-radius: 6px; font-size: 0.9rem; transition: 0.2s; cursor: pointer; border: none; background: none; width: 100%; text-align: left; }
-        .menu-item:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
-        .menu-item.active { background: rgba(168, 85, 247, 0.15); color: var(--accent); font-weight: 600; }
-
-        /* MAIN CONTENT */
-        .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow-y: auto; position: relative; }
-        
-        .top-bar { height: 60px; border-bottom: 1px solid #222; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; position: sticky; top: 0; background: var(--bg-dark); z-index: 10; }
-        .search-box { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 6px 15px; display: flex; align-items: center; gap: 10px; width: 300px; }
-        .search-box input { background: transparent; border: none; color: white; outline: none; font-size: 0.85rem; width: 100%; }
-        
-        .top-actions { display: flex; align-items: center; gap: 20px; }
-        #lang-select { background: transparent; border: 1px solid #444; color: var(--accent); padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.75rem; font-family: inherit; }
-        #lang-select option { background: #1a1a1a; color: white; }
-
-        .content { max-width: 850px; margin: 40px auto; padding: 0 40px 80px 40px; display: none; animation: fadeIn 0.3s ease; }
-        .content.active { display: block; }
-        
-        h1 { font-size: 2.2rem; margin-bottom: 20px; font-weight: 700; color: white; }
-        h2 { font-size: 1.5rem; margin: 30px 0 15px 0; color: var(--accent); }
-        p { line-height: 1.7; color: #b1b1b1; margin-bottom: 20px; }
-        ul { margin-bottom: 20px; padding-left: 20px; color: #b1b1b1; }
-        li { margin-bottom: 10px; line-height: 1.5; }
-
-        .note { background: var(--note-bg); border-left: 4px solid var(--note-border); padding: 20px; border-radius: 4px; margin: 25px 0; display: flex; gap: 15px; }
-        .note i { color: var(--note-border); font-size: 1.2rem; }
-
-        .download-footer { margin-top: 50px; padding-top: 30px; border-top: 1px solid #222; text-align: center; }
-        .btn-main { background: white; color: black; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; }
-
-        /* MOBILE ORIENTATION & ADAPTIVITY */
-        @media (max-width: 850px) {
-            body { flex-direction: column; overflow-y: auto; }
-            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; overflow: visible; }
-            .sidebar-header { padding: 15px 20px; }
-            .sidebar-menu { display: flex; overflow-x: auto; padding: 10px; gap: 10px; white-space: nowrap; scrollbar-width: none; }
-            .sidebar-menu::-webkit-scrollbar { display: none; }
-            .menu-section { margin-bottom: 0; display: flex; gap: 5px; align-items: center; }
-            .section-title { display: none; }
-            .menu-item { padding: 8px 15px; width: auto; font-size: 0.8rem; border: 1px solid #222; }
-            .top-bar { position: relative; padding: 0 20px; height: 50px; }
-            .search-box { width: 150px; }
-            .content { padding: 20px; margin: 0; }
-            h1 { font-size: 1.7rem; }
+        body {
+            background: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 50% -20%, #1a1033 0%, transparent 50%);
+            overflow-x: hidden;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #rain-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+        .drop { position: absolute; width: 1px; height: 50px; background: var(--primary); opacity: 0.1; will-change: transform; }
+        @keyframes fall { from { transform: translateY(-100px); } to { transform: translateY(110vh); } }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+        .logo-text { font-family: 'Syncopate', sans-serif; font-size: 1rem; }
+        .logo-text span { color: var(--primary); }
+
+        #lang-switch {
+            background: transparent; border: 1px solid #333; color: var(--primary);
+            padding: 5px 15px; border-radius: 6px; cursor: pointer; font-weight: 900; 
+        }
+
+        .wiki-header { padding: 60px 8% 30px; text-align: center; }
+        .wiki-header h1 { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; }
+
+        .wiki-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px; padding: 0 8% 100px; max-width: 1400px; margin: 0 auto;
+        }
+
+        .wiki-card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 20px; padding: 30px; cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideUp 0.8s both;
+        }
+        .wiki-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 15px 30px rgba(168, 85, 247, 0.15); }
+        .wiki-card i { font-size: 2rem; color: var(--primary); margin-bottom: 15px; display: block; }
+        .wiki-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+
+        /* VIEWER */
+        #article-viewer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 8, 0.98); z-index: 1000;
+            display: none; padding: 40px 8%; overflow-y: auto; backdrop-filter: blur(25px);
+        }
+        
+        .article-container { max-width: 900px; margin: 40px auto; position: relative; }
+        
+        .top-nav { display: flex; justify-content: flex-end; margin-bottom: 30px; }
+        
+        .close-btn {
+            background: var(--primary); color: white; border: none;
+            padding: 12px 25px; border-radius: 10px; cursor: pointer;
+            font-weight: 900; transition: 0.3s; font-size: 0.9rem;
+        }
+        .close-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--primary); }
+
+        .article-body { min-height: 400px; animation: fadeIn 0.4s ease; }
+        .article-body h2 { font-size: 3rem; margin-bottom: 25px; color: var(--primary); }
+        .article-body p { font-size: 1.2rem; color: #ccc; margin-bottom: 20px; line-height: 1.8; }
+        .article-body pre { 
+            background: #000; padding: 25px; border-radius: 15px; border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace; color: #a855f7; margin: 20px 0;
+        }
+
+        /* КНОПКИ НАВИГАЦИИ ВНУТРИ */
+        .bottom-nav {
+            display: flex; justify-content: space-between; margin-top: 60px;
+            padding-top: 30px; border-top: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            color: white; padding: 15px 35px; border-radius: 12px;
+            cursor: pointer; font-weight: 800; font-size: 1rem;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .nav-btn:hover { border-color: var(--primary); background: rgba(168, 85, 247, 0.1); transform: translateY(-3px); }
+        .nav-btn i { color: var(--primary); }
+        .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; transform: none; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
+    <div id="rain-container"></div>
 
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <a href="index.html" class="logo">
-                <img src="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/foxstrap.png?raw=true" alt="Logo">
-                <span>Foxstrap</span>
-            </a>
+    <nav>
+        <a href="index.html" class="logo-area">
+            <span class="logo-text">FOX<span>STRAP</span></span>
+        </a>
+        <button id="lang-switch">RU</button>
+    </nav>
+
+    <header class="wiki-header">
+        <h1 id="wiki-title" data-en="DOCUMENTATION" data-ru="ДОКУМЕНТАЦИЯ">DOCUMENTATION</h1>
+    </header>
+
+    <main class="wiki-grid">
+        <div class="wiki-card" onclick="openArticle(0)">
+            <i class="fa-solid fa-play"></i>
+            <h3 data-en="Quick Start" data-ru="Быстрый старт">Quick Start</h3>
+            <p data-en="Install Foxstrap and launch your first game." data-ru="Установите Foxstrap и запустите первую игру.">Install Foxstrap and launch your first game.</p>
         </div>
-        <nav class="sidebar-menu">
-            <div class="menu-section">
-                <div class="section-title" data-ru="ПРИВЕТСТВИЕ" data-en="WELCOME">WELCOME</div>
-                <button class="menu-item active" onclick="showTab('what-is')" data-ru="О проекте" data-en="What is Foxstrap?">What is Foxstrap?</button>
-                <button class="menu-item" onclick="showTab('faq')" data-ru="FAQ" data-en="FAQ">FAQ</button>
+        <div class="wiki-card" onclick="openArticle(1)">
+            <i class="fa-solid fa-bolt"></i>
+            <h3 data-en="FastFlags Guide" data-ru="Гайд по флагам">FastFlags Guide</h3>
+            <p data-en="Deep dive into Roblox engine modifications." data-ru="Глубокое погружение в модификации движка.">Deep dive into Roblox engine modifications.</p>
+        </div>
+        <div class="wiki-card" onclick="openArticle(2)">
+            <i class="fa-solid fa-palette"></i>
+            <h3 data-en="UI & Themes" data-ru="Интерфейс и Темы">UI & Themes</h3>
+            <p data-en="Customize the look and feel of your launcher." data-ru="Настройте внешний вид вашего лаунчера.">Customize the look and feel of your launcher.</p>
+        </div>
+        <div class="wiki-card" onclick="openArticle(3)">
+            <i class="fa-solid fa-share-nodes"></i>
+            <h3 data-en="Discord RPC" data-ru="Discord RPC">Discord RPC</h3>
+            <p data-en="Show your friends what you're playing." data-ru="Покажите друзьям, во что вы играете.">Show your friends what you're playing.</p>
+        </div>
+    </main>
+
+    <div id="article-viewer">
+        <div class="article-container">
+            <div class="top-nav">
+                <button class="close-btn" onclick="closeArticle()" data-en="CLOSE" data-ru="ЗАКРЫТЬ">CLOSE</button>
             </div>
-            <div class="menu-section">
-                <div class="section-title" data-ru="ФУНКЦИИ" data-en="FEATURES">FEATURES</div>
-                <button class="menu-item" onclick="showTab('modding')" data-ru="Моддинг" data-en="Modding">Modding</button>
-                <button class="menu-item" onclick="showTab('engine')" data-ru="Движок" data-en="Engine settings">Engine settings</button>
+            
+            <div id="article-body" class="article-body"></div>
+
+            <div class="bottom-nav">
+                <button id="prevBtn" class="nav-btn" onclick="navigate(-1)">
+                    <i class="fa-solid fa-arrow-left"></i> <span data-en="Back" data-ru="Назад">Back</span>
+                </button>
+                <button id="nextBtn" class="nav-btn" onclick="navigate(1)">
+                    <span data-en="Next" data-ru="Дальше">Next</span> <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
-            <div class="menu-section">
-                <div class="section-title" data-ru="ИНФО" data-en="INFO">INFO</div>
-                <button class="menu-item" onclick="showTab('privacy')" data-ru="Приватность" data-en="Privacy policy">Privacy policy</button>
-            </div>
-        </nav>
-    </aside>
-
-    <div class="main-wrapper">
-        <header class="top-bar">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search..." id="wikiSearch">
-            </div>
-            <div class="top-actions">
-                <select id="lang-select">
-                    <option value="en">🇬🇧 English</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                </select>
-                <div class="top-icons">
-                    <a href="https://discord.gg/88ethFUkpF" target="_blank"><i class="fa-brands fa-discord"></i></a>
-                    <a href="https://github.com/Ramos1488/Foxstrap" target="_blank"><i class="fa-brands fa-github"></i></a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Tab: What is -->
-        <section id="what-is" class="content active">
-            <h1 data-ru="Что такое Foxstrap?" data-en="What is Foxstrap?">What is Foxstrap?</h1>
-            <p data-ru="Foxstrap — это не просто лаунчер, это форк Bloxstrap с расширенным функционалом. Мы фокусируемся на предоставлении пользователю инструментов, которые Roblox скрывает по умолчанию." data-en="Foxstrap is not just a launcher, it's a Bloxstrap fork with extended functionality. We focus on providing the user with tools that Roblox hides by default.">
-                Foxstrap is not just a launcher, it's a Bloxstrap fork with extended functionality. We focus on providing the user with tools that Roblox hides by default.
-            </p>
-            <h2 data-ru="Основные цели" data-en="Core Goals">Core Goals</h2>
-            <ul>
-                <li data-ru="Производительность: Оптимизация через FFlags." data-en="Performance: Optimization through FFlags.">Performance: Optimization through FFlags.</li>
-                <li data-ru="Кастомизация: Полный контроль над визуалом игры." data-en="Customization: Full control over game visuals.">Customization: Full control over game visuals.</li>
-                <li data-ru="Удобство: Интуитивный интерфейс на C# и XAML." data-en="Usability: Intuitive UI built with C# and XAML.">Usability: Intuitive UI built with C# and XAML.</li>
-            </ul>
-        </section>
-
-        <!-- Tab: FAQ -->
-        <section id="faq" class="content">
-            <h1 data-ru="Частые вопросы" data-en="Frequently asked questions">Frequently asked questions</h1>
-            <h2 data-ru="Меня забанят?" data-en="Will I get banned?">Will I get banned?</h2>
-            <p data-ru="Использование Foxstrap не является читерством. Мы используем официальные настройки FastFlags, которые предоставляют сами разработчики Roblox." data-en="Using Foxstrap is not cheating. We use official FastFlags settings provided by Roblox developers themselves.">
-                Using Foxstrap is not cheating. We use official FastFlags settings provided by Roblox developers themselves.
-            </p>
-            <h2 data-ru="Нужен ли Bloxstrap для работы?" data-en="Do I need Bloxstrap to run it?">Do I need Bloxstrap to run it?</h2>
-            <p data-ru="Нет, Foxstrap работает автономно. Это полностью самостоятельная модификация." data-en="No, Foxstrap works autonomously. It is a completely independent modification.">
-                No, Foxstrap works autonomously. It is a completely independent modification.
-            </p>
-        </section>
-
-        <!-- Tab: Modding -->
-        <section id="modding" class="content">
-            <h1 data-ru="Моддинг" data-en="Modding">Modding</h1>
-            <p data-ru="В Foxstrap встроена система управления модами, которая позволяет:" data-en="Foxstrap has a built-in mod management system that allows you to:">
-                Foxstrap has a built-in mod management system that allows you to:
-            </p>
-            <ul>
-                <li data-ru="Заменять старый звук смерти (Oof)." data-en="Replace the old death sound (Oof).">Replace the old death sound (Oof).</li>
-                <li data-ru="Устанавливать кастомные иконки приложений." data-en="Install custom application icons.">Install custom application icons.</li>
-                <li data-ru="Применять кастомные курсоры и шрифты." data-en="Apply custom cursors and fonts.">Apply custom cursors and fonts.</li>
-            </ul>
-        </section>
-
-        <!-- Tab: Engine Settings -->
-        <section id="engine" class="content">
-            <h1 data-ru="Настройки движка" data-en="Engine settings">Engine settings</h1>
-            <p data-ru="Раздел настроек движка открывает доступ к мощным параметрам FastFlags. Это позволяет тонко настроить рендеринг игры." data-en="The engine settings section provides access to powerful FastFlags parameters. This allows for fine-tuning of game rendering.">
-                The engine settings section provides access to powerful FastFlags parameters. This allows for fine-tuning of game rendering.
-            </p>
-            <h2 data-ru="Что можно изменить?" data-en="What can be changed?">What can be changed?</h2>
-            <ul>
-                <li data-ru="Лимит FPS: Снимайте ограничение в 60 кадров в один клик." data-en="FPS Limit: Unlock the 60 FPS cap in one click.">FPS Limit: Unlock the 60 FPS cap in one click.</li>
-                <li data-ru="Rendering API: Переключение между Direct3D 11, Vulkan или OpenGL." data-en="Rendering API: Switch between Direct3D 11, Vulkan, or OpenGL.">Rendering API: Switch between Direct3D 11, Vulkan, or OpenGL.</li>
-                <li data-ru="Качество освещения: Включение скрытых технологий Future Lighting." data-en="Lighting Quality: Enable hidden Future Lighting technologies.">Lighting Quality: Enable hidden Future Lighting technologies.</li>
-            </ul>
-            <div class="note">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <div class="note-content">
-                    <strong data-ru="Внимание" data-en="Caution">Caution</strong>
-                    <p style="margin:0" data-ru="Неправильные настройки FFlags могут привести к вылетам игры." data-en="Incorrect FFlags settings may lead to game crashes.">Incorrect FFlags settings may lead to game crashes.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab: Privacy -->
-        <section id="privacy" class="content">
-            <h1 data-ru="Конфиденциальность" data-en="Privacy policy">Privacy policy</h1>
-            <p data-ru="Мы ценим вашу приватность. Foxstrap — это проект с открытым исходным кодом." data-en="We value your privacy. Foxstrap is an open-source project.">
-                We value your privacy. Foxstrap is an open-source project.
-            </p>
-            <h2 data-ru="Сбор данных" data-en="Data Collection">Data Collection</h2>
-            <p data-ru="Foxstrap не собирает и не отправляет ваши личные данные, пароли от аккаунтов или куки на сторонние сервера. Все настройки хранятся локально на вашем компьютере." data-en="Foxstrap does not collect or send your personal data, account passwords, or cookies to third-party servers. All settings are stored locally on your computer.">
-                Foxstrap does not collect or send your personal data, account passwords, or cookies to third-party servers. All settings are stored locally on your computer.
-            </p>
-            <h2 data-ru="Прозрачность" data-en="Transparency">Transparency</h2>
-            <p data-ru="Вы всегда можете проверить исходный код проекта на нашем GitHub, чтобы убедиться в отсутствии вредоносного кода." data-en="You can always check the project's source code on our GitHub to ensure there is no malicious code.">
-                You can always check the project's source code on our GitHub to ensure there is no malicious code.
-            </p>
-        </section>
-
-        <div class="download-footer">
-            <a href="index.html" class="btn-main">
-                <i class="fa-solid fa-download"></i>
-                <span data-ru="Скачать Foxstrap" data-en="Download Foxstrap">Download Foxstrap</span>
-            </a>
         </div>
     </div>
 
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            
-            const activeTab = document.getElementById(tabId);
-            if (activeTab) activeTab.classList.add('active');
-            
-            const activeBtn = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
-            if (activeBtn) activeBtn.classList.add('active');
-
-            if(window.innerWidth < 850) {
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            }
-        }
-
-        const langSelect = document.getElementById('lang-select');
         let currentLang = 'en';
+        let currentIndex = 0;
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('[data-ru]').forEach(el => {
-                el.innerText = el.getAttribute('data-' + currentLang);
-            });
-            const searchInput = document.getElementById('wikiSearch');
-            searchInput.placeholder = currentLang === 'ru' ? 'Поиск...' : 'Search...';
+        const content = [
+            {
+                id: 'start',
+                en: { h: "Quick Start", p: "To start using Foxstrap, download the latest beta release. Foxstrap modifies your Roblox client to provide extra features without risking a ban. Just point to your Roblox folder and hit install." },
+                ru: { h: "Быстрый старт", p: "Чтобы начать использовать Foxstrap, скачайте последнюю бета-версию. Foxstrap модифицирует ваш клиент Roblox, предоставляя дополнительные функции без риска бана. Просто укажите путь к папке и нажмите установить." }
+            },
+            {
+                id: 'flags',
+                en: { h: "FastFlags", p: "FastFlags are internal toggles for the Roblox engine. With Foxstrap, you can unlock your FPS beyond 60, enable Future lighting in all games, and even disable player shadows to boost performance." },
+                ru: { h: "FastFlags", p: "FastFlags — это внутренние переключатели движка Roblox. С Foxstrap вы можете разблокировать FPS выше 60, включить освещение Future во всех играх и даже отключить тени для буста производительности." }
+            },
+            {
+                id: 'ui',
+                en: { h: "UI & Themes", p: "Our launcher supports Glassmorphism themes. You can change the accent color, adjust blur strength, and choose between Dark and Midnight modes to match your desktop setup." },
+                ru: { h: "Интерфейс и Темы", p: "Наш лаунчер поддерживает темы в стиле Glassmorphism. Вы можете менять акцентный цвет, настраивать силу размытия и выбирать между Темным и Полночным режимами под ваш сетап." }
+            },
+            {
+                id: 'rpc',
+                en: { h: "Discord RPC", p: "Rich Presence allows you to show detailed info on Discord. Friends will see your game title, server uptime, and a link to join you directly from your profile." },
+                ru: { h: "Discord RPC", p: "Rich Presence позволяет показывать подробную инфу в Discord. Друзья увидят название игры, время на сервере и кнопку для прямого захода к вам в профиль." }
+            }
+        ];
+
+        function openArticle(index) {
+            currentIndex = index;
+            render();
+            document.getElementById('article-viewer').style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
-        langSelect.addEventListener('change', (e) => {
-            setLanguage(e.target.value);
+        function navigate(step) {
+            currentIndex += step;
+            render();
+        }
+
+        function render() {
+            const body = document.getElementById('article-body');
+            const data = content[currentIndex][currentLang];
+            
+            body.style.animation = 'none';
+            body.offsetHeight; // Trigger reflow
+            body.style.animation = 'fadeIn 0.4s ease';
+
+            body.innerHTML = `<h2>${data.h}</h2><p>${data.p}</p><pre>Section: ${content[currentIndex].id.toUpperCase()}</pre>`;
+
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === content.length - 1;
+        }
+
+        function closeArticle() {
+            document.getElementById('article-viewer').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('lang-switch').addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'ru' : 'en';
+            this.innerText = currentLang === 'en' ? 'RU' : 'EN';
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerHTML = el.getAttribute('data-' + currentLang);
+            });
+            if (document.getElementById('article-viewer').style.display === 'block') render();
         });
 
-        // начальная установка языка по умолчанию (английский)
-        setLanguage('en');
+        function createRain() {
+            const container = document.getElementById('rain-container');
+            setInterval(() => {
+                if (container.children.length < 25) {
+                    const drop = document.createElement('div');
+                    drop.className = 'drop';
+                    drop.style.left = Math.random() * 100 + 'vw';
+                    const dur = Math.random() * 1 + 1;
+                    drop.style.animation = `fall ${dur}s linear forwards`;
+                    container.appendChild(drop);
+                    setTimeout(() => drop.remove(), dur * 1000);
+                }
+            }, 200);
+        }
+        document.addEventListener('DOMContentLoaded', createRain);
     </script>
 </body>
 </html>
