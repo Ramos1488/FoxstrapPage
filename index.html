@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foxstrap | Home</title>
+    
+    <!-- Иконка вкладки (Favicon) -->
+    <link rel="icon" type="image/png" href="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/foxstrap.png?raw=true">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -24,15 +28,18 @@
             background-image: radial-gradient(circle at 50% -20%, #1a1033 0%, transparent 50%);
         }
 
+        /* АНИМАЦИЯ ДОЖДЯ */
         #rain-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
-        .drop { position: absolute; width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--primary)); opacity: 0.3; }
+        .drop { position: absolute; width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--primary)); opacity: 0.2; }
         @keyframes fall { to { transform: translateY(110vh); } }
 
+        /* НАВИГАЦИЯ */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 8%; background: rgba(0,0,0,0.8);
             backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 100;
+            animation: slideDown 0.8s ease-out;
         }
 
         .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
@@ -42,25 +49,32 @@
 
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        .nav-links a:hover { color: white; }
+        .nav-links a:hover { color: white; transform: translateY(-2px); }
         .nav-links i { color: var(--primary); font-size: 1rem; }
 
         #lang-switch {
             background: transparent; border: 1px solid #333; color: var(--primary);
             padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem;
+            transition: 0.3s;
         }
 
+        /* ГЛАВНЫЙ ЭКРАН */
         .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; padding: 0 8%; position: relative; z-index: 20; }
         .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; max-width: 1200px; align-items: center; }
 
         .hero-info h1 { 
             font-size: 5.5rem; font-weight: 900; letter-spacing: -3px; margin-bottom: 20px;
-            background: linear-gradient(to bottom, #fff, #666);
+            background: linear-gradient(90deg, #fff, var(--primary), #fff);
+            background-size: 200% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite, fadeInUp 1s ease-out;
         }
 
-        .dl-card { background: var(--glass); padding: 40px; border-radius: 24px; border: 1px solid var(--border); backdrop-filter: blur(15px); max-width: 480px; }
-        .dl-card h2 { font-size: 0.8rem; margin-bottom: 20px; font-family: 'Syncopate', sans-serif; letter-spacing: 1px; }
+        .dl-card { 
+            background: var(--glass); padding: 40px; border-radius: 24px; border: 1px solid var(--border); 
+            backdrop-filter: blur(15px); max-width: 480px;
+            animation: fadeInUp 1s ease-out 0.2s backwards, float 6s ease-in-out infinite;
+        }
         
         .download-options { display: flex; gap: 15px; margin-bottom: 25px; }
         .btn-dl { flex: 1; padding: 16px; text-decoration: none; font-weight: 900; border-radius: 12px; transition: 0.3s; font-size: 0.8rem; text-align: center; }
@@ -68,11 +82,7 @@
         .zip-btn { border: 1px solid var(--border); color: white; background: rgba(255,255,255,0.05); }
         .btn-dl:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
 
-        .card-footer { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
-        .footer-link { display: block; color: #888; text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: 0.3s; }
-        .footer-link span { color: var(--primary); font-weight: 800; }
-        .footer-link:hover { color: white; }
-
+        /* СКРИНШОТЫ */
         .screenshot-stack { position: relative; height: 400px; }
         .screen-card {
             position: absolute; width: 420px; height: 260px;
@@ -83,25 +93,27 @@
             opacity: 0; animation: fadeInUp 1s forwards;
         }
         .screen-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.4s; }
-        .s1 { top: 5%; left: 0; transform: rotate(-5deg); z-index: 1; animation-delay: 0.2s; }
-        .s2 { top: 25%; right: -20px; transform: rotate(5deg); z-index: 2; animation-delay: 0.4s; }
+        .s1 { top: 5%; left: 0; transform: rotate(-5deg); z-index: 1; animation-delay: 0.4s; }
+        .s2 { top: 25%; right: -20px; transform: rotate(5deg); z-index: 2; animation-delay: 0.6s; }
         .screen-card:hover { z-index: 10; transform: scale(1.08) rotate(0deg); border-color: var(--primary); }
         .screen-card:hover img { opacity: 1; }
 
-        /* НОВЫЙ БЛОК OPEN SOURCE */
+        /* СЕКЦИЯ OPEN SOURCE */
         .oss-section { background: #08080a; padding: 100px 8%; border-top: 1px solid #111; position: relative; z-index: 20; }
         .oss-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .oss-text h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
-        .oss-text p { color: #888; line-height: 1.6; margin-bottom: 30px; font-size: 1.1rem; }
-        .oss-link { 
-            color: var(--primary); font-family: 'JetBrains Mono', monospace; 
-            text-decoration: none; font-weight: 600; font-size: 1rem;
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .oss-link:hover { text-decoration: underline; }
-        .oss-image img { max-width: 100%; border-radius: 20px; filter: drop-shadow(0 0 30px rgba(168,85,247,0.1)); }
+        .oss-text h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; animation: fadeInUp 1s ease-out; }
+        .oss-text p { color: #888; line-height: 1.6; margin-bottom: 30px; font-size: 1.1rem; animation: fadeInUp 1s ease-out 0.2s backwards; }
+        .oss-link { color: var(--primary); font-family: 'JetBrains Mono', monospace; text-decoration: none; font-weight: 600; animation: fadeInUp 1s ease-out 0.4s backwards; }
+        .oss-image { animation: fadeInUp 1s ease-out 0.3s backwards; }
+        .oss-image img { max-width: 100%; border-radius: 20px; filter: drop-shadow(0 0 30px rgba(168,85,247,0.1)); transition: 0.5s; }
+        .oss-image img:hover { transform: scale(1.02); filter: drop-shadow(0 0 40px rgba(168,85,247,0.2)); }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; } }
+        /* КЛЮЧЕВЫЕ КАДРЫ */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes shine { to { background-position: 200% center; } }
+
         @media (max-width: 1100px) { 
             .hero-container, .oss-container { grid-template-columns: 1fr; text-align: center; } 
             .dl-card { margin: 0 auto; } 
@@ -135,11 +147,11 @@
                         <a href="https://github.com/Ramos1488/Foxstrap/archive/refs/tags/v1.0.0.zip" class="btn-dl zip-btn">.ZIP ARCHIVE</a>
                     </div>
                     <div class="card-footer">
-                        <a href="wiki.html" class="footer-link">
-                            <span data-lang-en="WIKI" data-lang-ru="ВИКИ">WIKI</span> —> <i data-lang-en="Documentation" data-lang-ru="Документация">Documentation</i>
+                        <a href="wiki.html" style="color: #888; text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 10px;">
+                            <span style="color: var(--primary); font-weight: 800;">WIKI</span> —> Documentation
                         </a>
-                        <a href="https://discord.gg/88ethFUkpF" class="footer-link" target="_blank">
-                            <span data-lang-en="Join to our Discord community" data-lang-ru="Вступай в наш Discord">Join to our Discord community</span> —> <u>click here</u>
+                        <a href="https://discord.gg/88ethFUkpF" style="color: #888; text-decoration: none; font-size: 0.85rem;" target="_blank">
+                            <span data-lang-en="Join Discord" data-lang-ru="Вступай в Discord">Join Discord</span> —> <u>click here</u>
                         </a>
                     </div>
                 </div>
@@ -160,16 +172,16 @@
         <div class="oss-container">
             <div class="oss-text">
                 <h2 data-lang-en="Free and open source" data-lang-ru="Свободный код">Free and open source</h2>
-                <p data-lang-en="Foxstrap's code is available on GitHub and anyone can see inside it, contribute to it, or even make their own version." 
-                   data-lang-ru="Код Foxstrap доступен на GitHub. Любой может заглянуть внутрь, внести свой вклад или даже создать свою собственную версию.">
-                   Foxstrap's code is available on GitHub and anyone can see inside it, contribute to it, or even make their own version.
+                <p data-lang-en="Foxstrap's code is available on GitHub and anyone can see inside it." 
+                   data-lang-ru="Код Foxstrap доступен на GitHub. Любой может заглянуть внутрь и внести свой вклад.">
+                    Foxstrap's code is available on GitHub and anyone can see inside it.
                 </p>
                 <a href="https://github.com/Ramos1488/Foxstrap" class="oss-link" target="_blank">
                     <i class="fa-brands fa-github"></i> github.com/Ramos1488/Foxstrap
                 </a>
             </div>
             <div class="oss-image">
-                <img src="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/Contributors.png?raw=true" alt="Contributors">
+                <img src="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/Contributors.png?raw=true" alt="OSS Image">
             </div>
         </div>
     </section>
@@ -181,12 +193,13 @@
                 const drop = document.createElement('div');
                 drop.className = 'drop';
                 drop.style.left = Math.random() * 100 + 'vw';
-                const dur = Math.random() * 0.5 + 0.5;
+                const dur = Math.random() * 0.5 + 0.6;
                 drop.style.animation = `fall ${dur}s linear forwards`;
                 container.appendChild(drop);
                 setTimeout(() => drop.remove(), dur * 1000);
-            }, 60);
+            }, 70);
         }
+
         const langBtn = document.getElementById('lang-switch');
         let currentLang = 'en';
         langBtn.addEventListener('click', () => {
@@ -196,6 +209,7 @@
                 el.innerText = el.getAttribute('data-lang-' + currentLang);
             });
         });
+
         document.addEventListener('DOMContentLoaded', createRain);
     </script>
 </body>
