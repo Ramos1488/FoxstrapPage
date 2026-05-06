@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foxstrap | Wiki</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Иконка вкладки (Favicon) -->
+    <link rel="icon" type="image/png" href="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/foxstrap.png?raw=true">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -41,7 +45,8 @@
         .search-box input { background: transparent; border: none; color: white; outline: none; font-size: 0.85rem; width: 100%; }
         
         .top-actions { display: flex; align-items: center; gap: 20px; }
-        #lang-switch { background: transparent; border: 1px solid #444; color: var(--accent); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
+        #lang-select { background: transparent; border: 1px solid #444; color: var(--accent); padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.75rem; font-family: inherit; }
+        #lang-select option { background: #1a1a1a; color: white; }
 
         .content { max-width: 850px; margin: 40px auto; padding: 0 40px 80px 40px; display: none; animation: fadeIn 0.3s ease; }
         .content.active { display: block; }
@@ -111,7 +116,10 @@
                 <input type="text" placeholder="Search..." id="wikiSearch">
             </div>
             <div class="top-actions">
-                <button id="lang-switch">RU</button>
+                <select id="lang-select">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="ru">🇷🇺 Русский</option>
+                </select>
                 <div class="top-icons">
                     <a href="https://discord.gg/88ethFUkpF" target="_blank"><i class="fa-brands fa-discord"></i></a>
                     <a href="https://github.com/Ramos1488/Foxstrap" target="_blank"><i class="fa-brands fa-github"></i></a>
@@ -159,7 +167,7 @@
             </ul>
         </section>
 
-        <!-- Tab: Engine Settings (НОВОЕ) -->
+        <!-- Tab: Engine Settings -->
         <section id="engine" class="content">
             <h1 data-ru="Настройки движка" data-en="Engine settings">Engine settings</h1>
             <p data-ru="Раздел настроек движка открывает доступ к мощным параметрам FastFlags. Это позволяет тонко настроить рендеринг игры." data-en="The engine settings section provides access to powerful FastFlags parameters. This allows for fine-tuning of game rendering.">
@@ -180,7 +188,7 @@
             </div>
         </section>
 
-        <!-- Tab: Privacy (НОВОЕ) -->
+        <!-- Tab: Privacy -->
         <section id="privacy" class="content">
             <h1 data-ru="Конфиденциальность" data-en="Privacy policy">Privacy policy</h1>
             <p data-ru="Мы ценим вашу приватность. Foxstrap — это проект с открытым исходным кодом." data-en="We value your privacy. Foxstrap is an open-source project.">
@@ -215,26 +223,29 @@
             const activeBtn = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
             if (activeBtn) activeBtn.classList.add('active');
 
-            // Авто-скролл к началу на мобилках
             if(window.innerWidth < 850) {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             }
         }
 
-        const langBtn = document.getElementById('lang-switch');
+        const langSelect = document.getElementById('lang-select');
         let currentLang = 'en';
 
-        langBtn.addEventListener('click', () => {
-            currentLang = currentLang === 'en' ? 'ru' : 'en';
-            langBtn.innerText = currentLang === 'en' ? 'RU' : 'EN';
-            
+        function setLanguage(lang) {
+            currentLang = lang;
             document.querySelectorAll('[data-ru]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
-
             const searchInput = document.getElementById('wikiSearch');
             searchInput.placeholder = currentLang === 'ru' ? 'Поиск...' : 'Search...';
+        }
+
+        langSelect.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
         });
+
+        // начальная установка языка по умолчанию (английский)
+        setLanguage('en');
     </script>
 </body>
 </html>
