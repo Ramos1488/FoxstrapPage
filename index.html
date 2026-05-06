@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foxstrap | Home</title>
     
-    <!-- Иконка вкладки (Favicon) -->
     <link rel="icon" type="image/png" href="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/foxstrap.png?raw=true">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
             --primary: #a855f7;
             --bg: #050508;
-            --glass: rgba(10, 10, 15, 0.85);
+            --glass: rgba(10, 10, 15, 0.8);
             --border: rgba(168, 85, 247, 0.2);
         }
 
@@ -26,103 +25,121 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             background-image: radial-gradient(circle at 50% -20%, #1a1033 0%, transparent 50%);
+            text-rendering: optimizeSpeed;
         }
 
-        /* АНИМАЦИЯ ДОЖДЯ */
+        /* ДОЖДЬ */
         #rain-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
-        .drop { position: absolute; width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--primary)); opacity: 0.2; }
-        @keyframes fall { to { transform: translateY(110vh); } }
+        .drop { position: absolute; width: 1px; height: 50px; background: var(--primary); opacity: 0.15; will-change: transform; }
+        @keyframes fall { from { transform: translateY(-100px); } to { transform: translateY(110vh); } }
 
         /* НАВИГАЦИЯ */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+            padding: 20px 8%; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 100;
-            animation: slideDown 0.8s ease-out;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; transition: 0.3s; }
+        .logo-area:hover { opacity: 0.8; transform: scale(1.02); }
         .logo-img { width: 30px; height: 30px; object-fit: contain; }
         .logo-text { font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 1.2rem; }
         .logo-text span { color: var(--primary); }
 
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        .nav-links a:hover { color: white; transform: translateY(-2px); }
-        .nav-links i { color: var(--primary); font-size: 1rem; }
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
 
         #lang-switch {
             background: transparent; border: 1px solid #333; color: var(--primary);
-            padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: 900; font-size: 0.7rem;
-            transition: 0.3s;
+            padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: 900; transition: 0.3s;
         }
+        #lang-switch:hover { background: var(--primary); color: white; }
 
         /* ГЛАВНЫЙ ЭКРАН */
         .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; padding: 0 8%; position: relative; z-index: 20; }
         .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; max-width: 1200px; align-items: center; }
 
         .hero-info h1 { 
-            font-size: 5.5rem; font-weight: 900; letter-spacing: -3px; margin-bottom: 20px;
+            font-size: clamp(3rem, 10vw, 5.5rem); font-weight: 900; letter-spacing: -3px; margin-bottom: 20px;
             background: linear-gradient(90deg, #fff, var(--primary), #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine 5s linear infinite, fadeInUp 1s ease-out;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shine 8s linear infinite;
         }
 
         .dl-card { 
             background: var(--glass); padding: 40px; border-radius: 24px; border: 1px solid var(--border); 
-            backdrop-filter: blur(15px); max-width: 480px;
-            animation: fadeInUp 1s ease-out 0.2s backwards, float 6s ease-in-out infinite;
+            backdrop-filter: blur(8px); max-width: 480px;
+            animation: float 6s ease-in-out infinite;
         }
         
         .download-options { display: flex; gap: 15px; margin-bottom: 25px; }
-        .btn-dl { flex: 1; padding: 16px; text-decoration: none; font-weight: 900; border-radius: 12px; transition: 0.3s; font-size: 0.8rem; text-align: center; }
+        .btn-dl { 
+            flex: 1; padding: 16px; text-decoration: none; font-weight: 900; 
+            border-radius: 12px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            text-align: center;
+        }
         .exe-btn { background: white; color: black; }
         .zip-btn { border: 1px solid var(--border); color: white; background: rgba(255,255,255,0.05); }
-        .btn-dl:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
+        .btn-dl:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4); }
 
         /* СКРИНШОТЫ */
         .screenshot-stack { position: relative; height: 400px; }
         .screen-card {
             position: absolute; width: 420px; height: 260px;
             background: #0a0a0f; border: 1px solid var(--border);
-            border-radius: 18px; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-            transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            opacity: 0; animation: fadeInUp 1s forwards;
+            border-radius: 18px; overflow: hidden; transition: 0.5s;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
-        .screen-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.4s; }
-        .s1 { top: 5%; left: 0; transform: rotate(-5deg); z-index: 1; animation-delay: 0.4s; }
-        .s2 { top: 25%; right: -20px; transform: rotate(5deg); z-index: 2; animation-delay: 0.6s; }
-        .screen-card:hover { z-index: 10; transform: scale(1.08) rotate(0deg); border-color: var(--primary); }
+        .screen-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+        .s1 { top: 5%; left: 0; transform: rotate(-5deg); }
+        .s2 { top: 25%; right: -20px; transform: rotate(5deg); }
+        .screen-card:hover { z-index: 10; transform: scale(1.1) rotate(0deg); border-color: var(--primary); box-shadow: 0 0 30px rgba(168, 85, 247, 0.3); }
         .screen-card:hover img { opacity: 1; }
 
-        /* СЕКЦИЯ OPEN SOURCE */
-        .oss-section { background: #08080a; padding: 100px 8%; border-top: 1px solid #111; position: relative; z-index: 20; }
-        .oss-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .oss-text h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; animation: fadeInUp 1s ease-out; }
-        .oss-text p { color: #888; line-height: 1.6; margin-bottom: 30px; font-size: 1.1rem; animation: fadeInUp 1s ease-out 0.2s backwards; }
-        .oss-link { color: var(--primary); font-family: 'JetBrains Mono', monospace; text-decoration: none; font-weight: 600; animation: fadeInUp 1s ease-out 0.4s backwards; }
-        .oss-image { animation: fadeInUp 1s ease-out 0.3s backwards; }
-        .oss-image img { max-width: 100%; border-radius: 20px; filter: drop-shadow(0 0 30px rgba(168,85,247,0.1)); transition: 0.5s; }
-        .oss-image img:hover { transform: scale(1.02); filter: drop-shadow(0 0 40px rgba(168,85,247,0.2)); }
+        /* OSS SECTION С АНИМАЦИЕЙ */
+        .oss-section { background: #08080a; padding: 100px 8%; border-top: 1px solid #111; overflow: hidden; }
+        .oss-container { 
+            max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+            opacity: 0; transform: translateY(50px); transition: 1s all ease-out;
+        }
+        .oss-container.active { opacity: 1; transform: translateY(0); }
+
+        .oss-text h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
+        .oss-text p { color: #888; line-height: 1.6; margin-bottom: 30px; font-size: 1.1rem; }
+        
+        .oss-link { 
+            display: inline-block; color: var(--primary); font-family: 'JetBrains Mono', monospace; 
+            text-decoration: none; font-weight: 600; padding: 10px 20px; border: 1px dashed var(--border);
+            border-radius: 8px; transition: 0.3s;
+        }
+        .oss-link:hover { background: rgba(168, 85, 247, 0.1); border-style: solid; transform: translateX(10px); }
+
+        .oss-image { position: relative; }
+        .oss-image img { 
+            max-width: 100%; border-radius: 20px; 
+            filter: drop-shadow(0 0 20px rgba(168,85,247,0.2));
+            animation: float 5s ease-in-out infinite;
+        }
+        .oss-image::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 50px rgba(168, 85, 247, 0.1); border-radius: 20px; pointer-events: none;
+        }
 
         /* КЛЮЧЕВЫЕ КАДРЫ */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes shine { to { background-position: 200% center; } }
 
         @media (max-width: 1100px) { 
             .hero-container, .oss-container { grid-template-columns: 1fr; text-align: center; } 
-            .dl-card { margin: 0 auto; } 
-            .screenshot-stack, .oss-image { display: none; } 
+            .dl-card { margin: 0 auto; } .screenshot-stack { display: none; }
         }
     </style>
 </head>
 <body>
     <div id="rain-container"></div>
+    
     <nav>
         <a href="index.html" class="logo-area">
             <img src="https://github.com/Ramos1488/Foxstrap/blob/main/Assets/foxstrap.png?raw=true" alt="" class="logo-img">
@@ -169,7 +186,7 @@
     </main>
 
     <section class="oss-section">
-        <div class="oss-container">
+        <div class="oss-container" id="ossContainer">
             <div class="oss-text">
                 <h2 data-lang-en="Free and open source" data-lang-ru="Свободный код">Free and open source</h2>
                 <p data-lang-en="Foxstrap's code is available on GitHub and anyone can see inside it." 
@@ -187,19 +204,36 @@
     </section>
 
     <script>
+        // Дождь
         function createRain() {
             const container = document.getElementById('rain-container');
-            setInterval(() => {
-                const drop = document.createElement('div');
-                drop.className = 'drop';
-                drop.style.left = Math.random() * 100 + 'vw';
-                const dur = Math.random() * 0.5 + 0.6;
-                drop.style.animation = `fall ${dur}s linear forwards`;
-                container.appendChild(drop);
-                setTimeout(() => drop.remove(), dur * 1000);
-            }, 70);
+            const maxDrops = 25;
+            function addDrop() {
+                if (container.children.length < maxDrops) {
+                    const drop = document.createElement('div');
+                    drop.className = 'drop';
+                    drop.style.left = Math.random() * 100 + 'vw';
+                    const dur = Math.random() * 0.5 + 0.8;
+                    drop.style.animation = `fall ${dur}s linear forwards`;
+                    container.appendChild(drop);
+                    setTimeout(() => drop.remove(), dur * 1000);
+                }
+            }
+            setInterval(addDrop, 200);
         }
 
+        // Анимация при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(document.getElementById('ossContainer'));
+
+        // Перевод
         const langBtn = document.getElementById('lang-switch');
         let currentLang = 'en';
         langBtn.addEventListener('click', () => {
